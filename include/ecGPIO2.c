@@ -1,7 +1,7 @@
 /*----------------------------------------------------------------\
 @ Embedded Controller by Young-Keun Kim - Handong Global University
-Author           : Jihoon 
-Created          : 05-03-2021hbl
+Author           : Jihoon Park
+Created          : 05-03-2021
 Modified         : 14-09-2026 
 Language/ver     : C++ in VS Code
 
