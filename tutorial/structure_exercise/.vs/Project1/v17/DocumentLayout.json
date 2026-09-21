@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\jihoo\\source\\repos\\EC\\tutorial\\structure_exercise\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5162AC1C-EA6B-4E7A-BAEC-0C43D4BA3E4C}|Project1.vcxproj|C:\\Users\\jihoo\\source\\repos\\EC\\tutorial\\structure_exercise\\exercise3.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5162AC1C-EA6B-4E7A-BAEC-0C43D4BA3E4C}|Project1.vcxproj|solutionrelative:exercise3.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{de1fc918-f32e-4dd7-a915-1792a051f26b}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "exercise3.c",
+              "DocumentMoniker": "C:\\Users\\jihoo\\source\\repos\\EC\\tutorial\\structure_exercise\\exercise3.c",
+              "RelativeDocumentMoniker": "exercise3.c",
+              "ToolTip": "C:\\Users\\jihoo\\source\\repos\\EC\\tutorial\\structure_exercise\\exercise3.c",
+              "RelativeToolTip": "exercise3.c",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAYwCMAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-08-31T05:43:13.679Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

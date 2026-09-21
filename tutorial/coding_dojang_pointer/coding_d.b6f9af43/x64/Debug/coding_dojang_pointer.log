@@ -1,0 +1,10 @@
+﻿  pointer.c
+C:\Users\jihoo\source\repos\EC\tutorial\coding_dojang_pointer\pointer.c(21,12): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'size_t'입니다.
+      C:\Users\jihoo\source\repos\EC\tutorial\coding_dojang_pointer\pointer.c(21,12):
+      서식 문자열에서 '%zd'을(를) 사용하는 것이 좋습니다.
+  
+C:\Users\jihoo\source\repos\EC\tutorial\coding_dojang_pointer\pointer.c(29,12): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'size_t'입니다.
+      C:\Users\jihoo\source\repos\EC\tutorial\coding_dojang_pointer\pointer.c(29,12):
+      서식 문자열에서 '%zd'을(를) 사용하는 것이 좋습니다.
+  
+  coding_dojang_pointer.vcxproj -> C:\Users\jihoo\source\repos\EC\tutorial\coding_dojang_pointer\x64\Debug\coding_dojang_pointer.exe
