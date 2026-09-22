@@ -134,7 +134,7 @@ int numberFND[12][8]={
                     {1,1,0,1,1,0,1,0},          //two
                     {1,1,1,1,0,0,1,0},			//three
 					{0,1,1,0,0,1,1,0},			//four
-					{1,0,1,1,0,1,0,0},			//five
+					{1,0,1,1,0,1,1,0},			//five
 					{1,0,1,1,1,1,1,0},			//six
 					{1,1,1,0,0,0,0,0},			//seven
 					{1,1,1,1,1,1,1,0},			//eight
@@ -162,16 +162,21 @@ void FND_select_init(PinName_t *selectFND){
 
 // Display a number 0 - 9 only
 void FND_display(uint8_t num){
-	//for(int i =0; i< 8; i++){
-	//	GPIO_write(_fndPins[num] ,LOW)
-	//}
-	
+	for(int i =0; i< 8; i++){
+		GPIO_write(_fndPins[i] , numberFND[num][i]);
+	}
 }
 
 // Select display: FND0 to FND3
 void FND_select(uint8_t digit){
-    // [YOUR CODE GOES HERE]    
-    // [YOUR CODE GOES HERE]        
+	for(int i = 0; i<4; i++){
+		if (i==digit){
+			GPIO_write(_fndSel[i], HIGH);
+		}
+		else{
+			GPIO_write(_fndSel[i], LOW);
+		}
+	}
 }
 
 ////////////////////////////////////////////////////////////////////
