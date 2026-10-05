@@ -14,10 +14,9 @@ Description      : EXTI header .c file
 #include "ecEXTI2.h"
 
 
-
 void EXTI_init(PinName_t pinName, uint32_t trig_type, uint32_t priority){
-
-	GPIO_Typedef * Port;
+	
+	GPIO_TypeDef * Port;
 	unsigned int pin;
 	ecPinmap(pinName,&Port,&pin);
 	
@@ -34,16 +33,17 @@ void EXTI_init(PinName_t pinName, uint32_t trig_type, uint32_t priority){
 	if		(Port == GPIOA) EXTICR_port = 0;
 	else if	(Port == GPIOB) EXTICR_port = 1;
 	else if	(Port == GPIOC) EXTICR_port = 2;
-	else if	(Port == GPIOD) EXTICR_port = 3;
-	else					EXTICR_port = 4;
+	else if	(Port == GPIOD) EXTICR_port = 3;	
+	else if (Port == GPIOE)	EXTICR_port = 4;
+	else EXTICR_port = 7;
 	
-	SYSCFG->EXTICR[EXTICR_port] &= ~(0xF << 4 *(pin % 4) ) ;			// clear 4 bits
-	SYSCFG->EXTICR[EXTICR_port] |= EXTICR_port << 4 *(pin % 4);			// Set 4 bits
+	SYSCFG->EXTICR[pin/4] &= ~(0xF << 4 *(pin % 4) ) ;			// clear 4 bits
+	SYSCFG->EXTICR[pin/4] |= EXTICR_port << 4 *(pin % 4);			// Set 4 bits
 	
 
 	// Select  Trigger edge (RISE, FALL, BOTH)
 	if (trig_type == FALL) 		EXTI->FTSR |= 1UL << pin;  // Falling trigger enable 
-	else if	(trig_type == RISE) EXTI->RTSR |= 1UL << pin;   // Rising trigger enable 
+	else if	(trig_type == RISE) EXTI->RTSR |= 1UL << pin;   // Rising trigger enable              
 	else if	(trig_type == BOTH) {			// Both falling/rising trigger enable
 		EXTI->RTSR |= 1UL << pin; 
 		EXTI->FTSR |= 1UL << pin;
@@ -66,7 +66,7 @@ void EXTI_init(PinName_t pinName, uint32_t trig_type, uint32_t priority){
 
 
 void EXTI_enable(PinName_t pinName) {
-	GPIO_Typedef *Port;
+	GPIO_TypeDef * Port;
 	unsigned int pin;
 	ecPinmap(pinName,&Port,&pin);
 	
@@ -74,7 +74,7 @@ void EXTI_enable(PinName_t pinName) {
 }
 
 void EXTI_disable(PinName_t pinName) {
-	GPIO_Typedef *Port;
+	GPIO_TypeDef *Port;
 	unsigned int pin;
 	ecPinmap(pinName,&Port,&pin);
 
@@ -84,7 +84,7 @@ void EXTI_disable(PinName_t pinName) {
 
 
 uint32_t is_pending_EXTI(PinName_t pinName) {
-	GPIO_Typedef *Port;
+	GPIO_TypeDef *Port;
 	unsigned int pin;
 	ecPinmap(pinName,&Port,&pin);
 

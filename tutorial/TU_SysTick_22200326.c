@@ -9,10 +9,8 @@ Description      : Tutorial - [Your Description GOES HERE !!]
 /----------------------------------------------------------------*/
 
 
-#include "stm32f411xe.h"
-#include "ecRCC2.h"
-#include "ecGPIO2.h"
-#include "ecSysTick2.h"  // < --  added !!!!
+
+#include "ecSTM32F4v2.h"
 
 #define LED_JK PB_12  // LED for Eval Board	JKIT
 
