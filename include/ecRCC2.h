@@ -1,8 +1,8 @@
 /*----------------------------------------------------------------\
 @ Embedded Controller by Young-Keun Kim - Handong Global University
-Author           : [ YOUR NAME GOES HERE !!!!!]
+Author           : Jihoon Park
 Created          : 05-03-2021
-Modified         : [WRITE THE DATE!!!!]
+Modified         : 15-09-2026
 Language/ver     : C++ in VS Code
 
 Description      : System Clock Library. Distributed to Students for LAB_GPIO
