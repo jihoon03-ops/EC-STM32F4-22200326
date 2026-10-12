@@ -247,15 +247,46 @@ int main(void) {
 
 ### EXTI
 
-#### Function Name
+#### Header File
+
+`#include "ecEXTI2.h"`
+
+```C++
+#define FALL 0
+#define RISE 1
+#define BOTH 2
+
+#ifdef __cplusplus
+ extern "C" {
+#endif /* __cplusplus */
+
+void EXTI_init(PinName_t pinName, uint32_t trig_type,uint32_t priority);
+void EXTI_enable(PinName_t pinName);
+void EXTI_disable(PinName_t pinName);
+uint32_t is_pending_EXTI(PinName_t pinName);
+void clear_pending_EXTI(PinName_t pinName);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+	 
+#endif // __EC_EXTI2_H
 
 ```
+
+#### EXTI\_init()
+
+Enable EXTI Clock with SYSCFG controller clock, Connect EXTI to the GPIO Port_y Pin_x, Select  Trigger edge (RISE, FALL, BOTH), Enable EXTI with Not-Masked Interrupt Request, NVIC(IRQ) Setting
+
+```
+void EXTI_init(PinName_t pinName, uint32_t trig_type,uint32_t priority);
 ```
 
 **Parameters**
 
-* p1
-* p2
+* **pinName**: Port and Pin number, PA_0 ~ PH_1
+* **trig_type**: pin number (int) 0\~15
+* **priority**: NO\_PUPD(0), PULL\_UP(1), PULL\_DOWN(2), RESERVED(3)
 
 **Example code**
 
