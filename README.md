@@ -14,7 +14,7 @@ MCU: STM32F411RE, Nucleo-64
 
 **Table of Contents**
 
-* [GPIO Digital In/Out](/ec/ec-course/tutorial.md#gpio-digital-inout)
+* [GPIO Digital In/Out](#gpio digital inout)
   * [Header File](/ec/ec-course/tutorial.md#header-file)
   * [GPIO\_init()](/ec/ec-course/tutorial.md#gpio-init----)
   * [GPIO\_mode()](/ec/ec-course/tutorial.md#gpio-mode----)
