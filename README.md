@@ -14,23 +14,23 @@ MCU: STM32F411RE, Nucleo-64
 
 **Table of Contents**
 
-* [GPIO Digital In/Out](#gpio digital inout)
-  * [Header File](/ec/ec-course/tutorial.md#header-file)
-  * [GPIO\_init()](/ec/ec-course/tutorial.md#gpio-init----)
-  * [GPIO\_mode()](/ec/ec-course/tutorial.md#gpio-mode----)
-  * [GPIO\_write()](/ec/ec-course/tutorial.md#gpio-write----)
-  * [GPIO\_read()](/ec/ec-course/tutorial.md#gpio-read----)
-  * [GPIO\_ospeed()](/ec/ec-course/tutorial.md#gpio-ospeed----)
-  * [GPIO\_otype()](/ec/ec-course/tutorial.md#gpio-otype----)
-  * [GPIO\_pupdr()](/ec/ec-course/tutorial.md#gpio-pupdr----)
-  * [Example Code](/ec/ec-course/tutorial.md)
-* [EXTI](/ec/ec-course/tutorial.md#gpio-digital-inout)
-  * [Header File](/ec/ec-course/tutorial.md#header-file)
-  * EXTI_init()
-  * EXTI_enable
-  * EXTI_disable
-  * is_pending_EXTI
-  * clear_pending_EXTI
+* [GPIO Digital In/Out](#gpio-digital-inout)
+  * [Header File](#header-file)
+  * [GPIO_init()](#gpio_init)
+  * [GPIO_mode()](#gpio_mode)
+  * [GPIO_write()](#gpio_write)
+  * [GPIO_read()](#gpio_read)
+  * [GPIO_ospeed()](#gpio_ospeed)
+  * [GPIO_otype()](#gpio_otype)
+  * [GPIO_pupdr()](#gpio_pupdr)
+  * [Example Code](#example-code)
+* [EXTI](#exti)
+  * [Header File](#header-file-1)
+  * [EXTI_init()](#exti_init)
+  * [EXTI_enable](#exti_enable)
+  * [EXTI_disable](#exti_disable)
+  * [is_pending_EXTI](#is_pending_exti)
+  * [clear_pending_EXTI](#clear_pending_exti)
 
 ***
 
