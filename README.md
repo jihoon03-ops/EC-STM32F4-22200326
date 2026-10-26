@@ -694,5 +694,142 @@ void EXTI15_10_IRQHandler(void) {
 }
 ```
 
+### UART
 
+#### Header File
+
+`#include "ecUART2.h"`
+
+```C++
+#ifndef __EC_USART2_STUDENT_H
+#define __EC_USART2_STUDENT_H
+
+#include <stdio.h>
+#include <math.h>
+#include "stm32f411xe.h"
+#include "ecGPIO2.h"
+#include "ecRCC2.h"
+
+
+#define POL 		0
+#define INT 		1
+
+// You can modify this
+#define BAUD_9600	9600
+#define BAUD_19200	19200
+#define BAUD_38400  38400
+#define BAUD_57600	57600
+#define BAUD_115200 115200
+#define BAUD_921600 921600
+
+
+/*================ General Configuration ================*/
+// General configuration
+void USART_init(USART_TypeDef* USARTx, PinName_t pin_GPIO_TX, PinName_t pin_GPIO_RX, uint32_t baud);	// copy of USART_setting
+void USART_baud(USART_TypeDef* USARTx, uint32_t baud);
+void USART_pins(USART_TypeDef* USARTx, PinName_t pin_GPIO_TX, PinName_t pin_GPIO_RX);
+
+void USART1_baud(uint32_t baud);
+void USART2_baud(uint32_t baud);
+
+
+/*================ PROVIDED  ================*/
+/*================ Configuration for each USART ================*/
+// Configuration UART 1, 2 using default settings
+void USART1_init(void);
+void USART2_init(void);
+
+// USART write & read
+void USART1_write(uint8_t* buffer, uint32_t nBytes);
+void USART2_write(uint8_t* buffer, uint32_t nBytes);
+uint8_t USART1_read(void);										
+uint8_t USART2_read(void);	
+
+// RX Inturrupt Flag USART1,2
+uint32_t is_USART1_RXNE(void);
+uint32_t is_USART2_RXNE(void);
+
+
+/*================ General Configuration ================*/
+void USART_clock_enable(USART_TypeDef* USARTx);
+void USART_write(USART_TypeDef* USARTx, uint8_t* buffer, uint32_t nBytes);
+uint8_t USART_read(USART_TypeDef * USARTx);										
+uint32_t is_USART_RXNE(USART_TypeDef * USARTx);
+void USART_delay(uint32_t us);  
+
+								
+
+#endif // __EC_USART2_STUDENT_H
+
+```
+
+
+
+#### USART\_init()
+
+Initialization of GPIO pin for TX and RX, USARTx (x=2,1,6) configuration
+
+```c
+void USART_init(USART_TypeDef* USARTx, PinName_t pin_GPIO_TX, PinName_t pin_GPIO_RX, uint32_t baud);
+```
+
+**Parameters**
+
+* **USARTx**: USARTx (x = 2,1,6)
+* **pin_GPIO_TX**: PA_9, PA_10  specific Port number
+* **pin_GPIO_RX**: PA_2, PA_3  specific Port number
+* **baud**: 9600, 19200, 38400 ... 
+
+**Example code**
+
+```c
+USART_init(USART2, PA_2, PA_3, 9600) 	
+```
+
+#### USART\_baud()
+
+configure Baud-rate
+
+```c
+void USART_baud(USART_TypeDef* USARTx, uint32_t baud);
+```
+
+**Parameters**
+
+* **USARTx**: USARTx (x = 2,1,6)
+* **baud**: 9600, 19200, 38400 ... 
+
+**Example code**
+
+```c
+USART1_baud(BAUD_9600);  //BAUD = 9600
+```
+
+
+#### USART\_pins()
+
+GPIO pin setup for USARTx TX/RX
+
+```c
+void USART_baud(USART_TypeDef* USARTx, uint32_t baud);
+```
+
+**Parameters**
+
+* **USARTx**: USARTx (x = 2,1,6)
+* **pin_GPIO_TX**: PA_9, PA_10  specific Port number
+* **pin_GPIO_RX**: PA_2, PA_3  specific Port number
+
+**Example code**
+
+```c
+USART_pins(USART1, PA_2, PA_3);
+```
+
+
+void USART_clock_enable(USART_TypeDef* USARTx);
+void USART_write(USART_TypeDef* USARTx, uint8_t* buffer, uint32_t nBytes);
+uint8_t USART_read(USART_TypeDef * USARTx);										
+uint32_t is_USART_RXNE(USART_TypeDef * USARTx);
+void USART_delay(uint32_t us); 
 
