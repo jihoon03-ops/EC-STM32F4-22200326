@@ -15,13 +15,24 @@ Description      : GPIO Library. Distributed to Students for LAB_GPIO
 #include "ecRCC2.h"
 #include "ecPinNames.h"
 
-#define INPUT  0x00
-#define OUTPUT 0x01
-#define AF     0x02
-#define ANALOG 0x03
-#define N0_PULLUP_PULLDOWN 0x00
-#define PULLUP 0x01
-#define PULLDOWN 0x02
+//MODER
+#define INPUT               0x00
+#define OUTPUT              0x01
+#define AF                  0x02
+#define ANALOG              0x03
+//OTYPER
+#define PUSH_PULL           0x00
+#define OPEN_DRAIN          0x01
+//OSPEEDR
+#define LOW_SPEED           0x00
+#define MEDIUM_SPEED        0x01
+#define FAST_SPEED          0x02
+#define HIGH_SPEED          0x03
+//PUPDR 
+#define NO_PULLUP_PULLDOWN  0x00
+#define PULLUP              0x01
+#define PULLDOWN            0x02
+#define RESERVED            0x03
 
 #define HIGH 1
 #define LOW  0

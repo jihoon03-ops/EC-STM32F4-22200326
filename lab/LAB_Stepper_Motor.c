@@ -6,29 +6,31 @@
 #include "ecStepper2.h"
 
 #define BUTTON_PIN  PC_13
-#define EC_DIN      0
 
 
 // ( A, B,  AN,  BN)
-PinName_t pinStepper[4]    = {PB_10,PB_4,PB_5,PB_3};
+// PinName_t pinStepper[4]    = {PC_5,PC_6,PC_7,PC_8};
+PinName_t pinStepper[4] = {PB_10, PB_4, PB_5, PB_3};
+
+
 
 // Initialiization 
 void setup(void){	
 	RCC_PLL_init();                                 // System Clock = 84MHz
 	SysTick_init();                                 // Systick init
 	
-	GPIO_init(BUTTON_PIN, EC_DIN);           		// GPIOC pin13 initialization
+	GPIO_init(BUTTON_PIN, INPUT);           		// GPIOC pin13 initialization
     EXTI_init(BUTTON_PIN, FALL, 0);           		// External Interrupt Setting
 
-	stepper_init(FULL, pinStepper); 				// Stepper GPIO pin initialization
-	stepper_speed(2);                          		//  set stepper motor speed
+	stepper_init(HALF, pinStepper); 				// Stepper GPIO pin initialization
+	stepper_speed(10);                        		//  set stepper motor speed
 }
 
 
 int main(void) { 
 	// Initialiization --------------------------------------------------------
 	setup();
-	uint32_t rev=1;
+	uint32_t rev=2;
 	uint32_t steps=STEP_PER_REV*rev;
 	
 	// Inifinite Loop ----------------------------------------------------------
@@ -39,7 +41,6 @@ int main(void) {
 		delay_ms(2000);
 	}
 }
-
 
 
 void EXTI15_10_IRQHandler(void) {  

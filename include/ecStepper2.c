@@ -26,7 +26,7 @@ static const StateStepper_t fsm_Full[4] = {
  {{S1,S3},{HIGH,HIGH,LOW,LOW}},	
  {{S2,S0},{LOW,HIGH,HIGH,LOW}},
  {{S3,S1},{LOW,LOW,HIGH,HIGH}},
- {{S0,S2},{LOW,LOW,HIGH,HIGH}}
+ {{S0,S2},{HIGH,LOW,LOW,HIGH}}
 };
 
 
@@ -76,11 +76,11 @@ void stepper_step(uint32_t steps, uint32_t direction){
 	// run for step size: 
 	for (uint32_t i = 0; i < _steps; i++){
 		// Update Present State
-		state = fsm[i].next[direction];
+		state = fsm[state].next[direction];
 
 		// Output of Present State
 		stepper_out(state);
-	
+    
 		// Delay for steppermotor speed
 		delay_ms(_step_delay);
 	}
