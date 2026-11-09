@@ -143,8 +143,8 @@ void USART_pins(USART_TypeDef* USARTx, PinName_t pin_GPIO_TX, PinName_t pin_GPIO
 	GPIO_pupd(pin_GPIO_RX, NO_PULLUP_PULLDOWN);
 	GPIO_pupd(pin_GPIO_TX, NO_PULLUP_PULLDOWN);
 
-	GPIO_speed(pin_GPIO_RX, HIGH_SPEED);
-	GPIO_speed(pin_GPIO_TX, HIGH_SPEED);
+	GPIO_ospeed(pin_GPIO_RX, HIGH_SPEED);
+	GPIO_ospeed(pin_GPIO_TX, HIGH_SPEED);
 
 	// Set Alternate Function Register for USARTx
 	//   AF7 - USART1, USART2
