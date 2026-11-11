@@ -38,7 +38,7 @@ MCU: STM32F411RE, Nucleo-64
   * [stepper_step()](#stepper_step)
   * [stepper_out()](#stepper_out)
   * [stepper_stop()](#stepper_stop)
-* [UART](#usart)
+* [UART](#uart)
   * [Header File](#header-file-3)
   * [USART_init()](#usart_init)
   * [USART_baud()](#usart_baud)
