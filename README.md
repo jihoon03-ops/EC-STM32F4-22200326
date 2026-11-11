@@ -38,6 +38,16 @@ MCU: STM32F411RE, Nucleo-64
   * [stepper_step()](#stepper_step)
   * [stepper_out()](#stepper_out)
   * [stepper_stop()](#stepper_stop)
+* [USART](#usart)
+  * [Header File](#header-file-3)
+  * [USART_init()](#usart_init)
+  * [USART_baud()](#usart_baud)
+  * [USART_pins()](#usart_pins)
+  * [USART_clock_enable()](#usart_clock_enable)
+  * [USART_write()](#usart_write)
+  * [USART_read()](#usart_read)
+  * [is_USART_RXNE()](#is_usart_rxne)
+  * [USART_delay()](#usart_delay)
 
 ***
 
@@ -775,7 +785,7 @@ void USART_init(USART_TypeDef* USARTx, PinName_t pin_GPIO_TX, PinName_t pin_GPIO
 
 **Parameters**
 
-* **USARTx**: USARTx (x = 2,1,6)
+* **USARTx**: USARTx (x = 2, 1 ,6)
 * **pin_GPIO_TX**: PA_9, PA_10  specific Port number
 * **pin_GPIO_RX**: PA_2, PA_3  specific Port number
 * **baud**: 9600, 19200, 38400 ... 
@@ -796,7 +806,7 @@ void USART_baud(USART_TypeDef* USARTx, uint32_t baud);
 
 **Parameters**
 
-* **USARTx**: USARTx (x = 2,1,6)
+* **USARTx**: USARTx (x = 2, 1, 6)
 * **baud**: 9600, 19200, 38400 ... 
 
 **Example code**
@@ -811,12 +821,12 @@ USART1_baud(BAUD_9600);  //BAUD = 9600
 GPIO pin setup for USARTx TX/RX
 
 ```c
-void USART_baud(USART_TypeDef* USARTx, uint32_t baud);
+void USART_pins(USART_TypeDef* USARTx, PinName_t pin_GPIO_TX, PinName_t pin_GPIO_RX);
 ```
 
 **Parameters**
 
-* **USARTx**: USARTx (x = 2,1,6)
+* **USARTx**: USARTx (x = 2, 1, 6)
 * **pin_GPIO_TX**: PA_9, PA_10  specific Port number
 * **pin_GPIO_RX**: PA_2, PA_3  specific Port number
 
@@ -826,10 +836,46 @@ void USART_baud(USART_TypeDef* USARTx, uint32_t baud);
 USART_pins(USART1, PA_2, PA_3);
 ```
 
+#### USART_clock_enable()
 
+Enable USARTx clock (x = 2, 1, 6)
+
+```c
 void USART_clock_enable(USART_TypeDef* USARTx);
-void USART_write(USART_TypeDef* USARTx, uint8_t* buffer, uint32_t nBytes);
-uint8_t USART_read(USART_TypeDef * USARTx);										
-uint32_t is_USART_RXNE(USART_TypeDef * USARTx);
-void USART_delay(uint32_t us); 
+```
 
+**Parameters**
+
+- **USARTx**: USARTx (x = 2, 1, 6)
+
+**Example code**
+
+```c
+USART_clock_enable(USARTx);		//ex) USART_TypeDef *USARTx= USART1
+```
+
+#### USART_write()
+
+```c
+void USART_write(USART_TypeDef* USARTx, uint8_t* buffer, uint32_t nBytes);
+```
+
+#### USART_read()
+
+```c
+uint8_t USART_read(USART_TypeDef * USARTx);
+```
+
+#### is_USART_RXNE()
+
+```c
+uint32_t is_USART_RXNE(USART_TypeDef * USARTx);
+```
+
+#### USART_delay()
+
+```c
+void USART_delay(uint32_t us);
+```
+
+ 
