@@ -1043,7 +1043,7 @@ void TIM_UI_init_us(TIM_TypeDef* TIMx, uint32_t usec);
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
+- **TIMx**: Timer peripheral, `TIM1`\~`TIM5`, `TIM9`\~`TIM11`
 - **usec**: Update interrupt period in microseconds (`1` ~ `65,530` usec for 16-bit ARR at 1 MHz)
 
 **Example code**
@@ -1064,7 +1064,7 @@ void TIM_UI_enable(TIM_TypeDef* TIMx);
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
+- **TIMx**: Timer peripheral, `TIM1`\~`TIM5`, `TIM9`\~`TIM11`
 
 **Example code**
 
@@ -1084,7 +1084,7 @@ void TIM_UI_disable(TIM_TypeDef* TIMx);
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
+- **TIMx**: Timer peripheral, `TIM1`\~`TIM5`, `TIM9`\~`TIM11`
 
 **Example code**
 
@@ -1104,7 +1104,7 @@ uint32_t is_UIF(TIM_TypeDef *TIMx);
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
+- **TIMx**: Timer peripheral, `TIM1`\~`TIM5`, `TIM9`\~`TIM11`
 
 **Example code**
 
@@ -1124,7 +1124,7 @@ void clear_UIF(TIM_TypeDef *TIMx);
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
+- **TIMx**: Timer peripheral, `TIM1`\~`TIM5`, `TIM9`\~`TIM11`
 
 **Example code**
 
@@ -1144,7 +1144,7 @@ void TIM_init(TIM_TypeDef *TIMx, uint32_t msec);
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
+- **TIMx**: Timer peripheral, `TIM1`\~`TIM5`, `TIM9`\~`TIM11`
 - **msec**: Counter period in milliseconds (`1` ~ `6,553` msec)
 
 **Example code**
@@ -1165,7 +1165,7 @@ void TIM_init_us(TIM_TypeDef *TIMx, uint32_t usec);
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
+- **TIMx**: Timer peripheral, `TIM1`\~`TIM5`, `TIM9`\~`TIM11`
 - **usec**: Counter period in microseconds (`1` ~ `65,530` usec)
 
 **Example code**
@@ -1186,7 +1186,7 @@ void TIM_period_ms(TIM_TypeDef* TIMx, uint32_t msec);
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
+- **TIMx**: Timer peripheral, `TIM1`\~`TIM5`, `TIM9`\~`TIM11`
 - **msec**: Target period in milliseconds (`1` ~ `6,553` msec)
 
 **Example code**
@@ -1207,7 +1207,7 @@ void TIM_period_us(TIM_TypeDef* TIMx, uint32_t usec);
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
+- **TIMx**: Timer peripheral, `TIM1`\~`TIM5`, `TIM9`\~`TIM11`
 - **usec**: Target period in microseconds (`1` ~ `65,530` usec)
 
 **Example code**
@@ -1220,7 +1220,7 @@ TIM_period_us(TIM2, 500);
 
 #### TIM\_clock\_enable()
 
-Enables the APB1 or APB2 peripheral clock for the specified timer (`TIM1`~`TIM5`, `TIM9`~`TIM11`).
+Enables the APB1 or APB2 peripheral clock for the specified timer (`TIM1`\~`TIM5`, `TIM9`\~`TIM11`).
 
 ```c
 void TIM_clock_enable(TIM_TypeDef* TIMx);
@@ -1228,7 +1228,7 @@ void TIM_clock_enable(TIM_TypeDef* TIMx);
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
+- **TIMx**: Timer peripheral, `TIM1`\~`TIM5`, `TIM9`\~`TIM11`
 
 **Example code**
 
@@ -1248,7 +1248,7 @@ uint32_t get_TIM_IRQn(TIM_TypeDef* TIMx);
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
+- **TIMx**: Timer peripheral, `TIM1`\~`TIM5`, `TIM9`\~`TIM11`
 
 **Example code**
 
