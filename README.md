@@ -1415,7 +1415,7 @@ void PWM_init(PinName_t pinName, uint32_t msec);
 
 **Parameters**
 
-- **pinName**: PWM output pin (`PA_0`~`PA_1`, `PA_5`~`PA_6`, `PA_8`~`PA_10`, `PA_15`, `PB_3`~`PB_10`, `PC_6`~`PC_9`)
+- **pinName**: PWM output pin (`PA_0`\~`PA_1`, `PA_5`\~`PA_6`, `PA_8`\~`PA_10`, `PA_15`, `PB_3`\~`PB_10`, `PC_6`\~`PC_9`)
 - **msec**: PWM period in milliseconds (`1` ~ `4,294,967` for 32-bit `TIM2`/`TIM5`; `1` ~ `6,553` for 16-bit `TIM1`/`TIM3`/`TIM4`)
 
 **Example code**
@@ -1436,7 +1436,7 @@ void PWM_init_us(PinName_t pinName, uint32_t usec);
 
 **Parameters**
 
-- **pinName**: PWM output pin (`PA_0`~`PA_1`, `PA_5`~`PA_6`, `PA_8`~`PA_10`, `PA_15`, `PB_3`~`PB_10`, `PC_6`~`PC_9`)
+- **pinName**: PWM output pin (`PA_0`\~`PA_1`, `PA_5`\~`PA_6`, `PA_8`\~`PA_10`, `PA_15`, `PB_3`\~`PB_10`, `PC_6`\~`PC_9`)
 - **usec**: PWM period in microseconds (`10` ~ `4,294,967` for 32-bit `TIM2`/`TIM5`; `10` ~ `6,553` for 16-bit `TIM1`/`TIM3`/`TIM4`)
 
 **Example code**
@@ -1531,7 +1531,7 @@ void PWM_mode_config(TIM_TypeDef *TIMx, int chN, uint32_t mode);
 
 **Parameters**
 
-- **TIMx**: Timer peripheral (`TIM1`~`TIM5`, `TIM9`~`TIM11`)
+- **TIMx**: Timer peripheral (`TIM1`\~`TIM5`, `TIM9`\~`TIM11`)
 - **chN**: Timer channel number (`1` ~ `4`)
 - **mode**: `EC_PWM_MODE1`(0) or `EC_PWM_MODE2`(1)
 
