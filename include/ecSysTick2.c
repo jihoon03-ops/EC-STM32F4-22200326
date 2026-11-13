@@ -2,7 +2,7 @@
 @ Embedded Controller by Young-Keun Kim - Handong Global University
 Author           : Jihoon Park
 Created          : 05-03-2021
-Modified         : 28-09-2026 [WRITE THE DATE!!!!]
+Modified         : 28-09-2026 
 Language/ver     : C++ in VS Code
 
 Description      : SysTick Library. Distributed to Students for LAB_SYSTICK
