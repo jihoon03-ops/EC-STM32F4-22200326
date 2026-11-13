@@ -53,7 +53,11 @@ void setup(void)
     FND_init(pinFND);
     for(int i = 0; i<8; i++){
         GPIO_otype(pinFND[i], LOW);                 // 0: Push-Pull
+<<<<<<< HEAD
         GPIO_pupd(pinFND[i], NO_PULLUP_PULLDOWN);   // no pull up pull down
+=======
+        GPIO_pupd(pinFND[i], N0_PULLUP_PULLDOWN);   // no pull up pull down
+>>>>>>> 354b7821be33fa350ade9b0c40df756a249ff568
         GPIO_ospeed(pinFND[i], 01);                 // 01: Medium speed
     }
 

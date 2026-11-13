@@ -34,7 +34,10 @@
 #endif
 
 // #define ...........
+<<<<<<< HEAD
 #define LED_PIN     PA_5
+=======
+>>>>>>> 354b7821be33fa350ade9b0c40df756a249ff568
 
 
 // enum...........
