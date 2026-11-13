@@ -5,7 +5,7 @@ Created          : 05-03-2021
 Modified         : 10-29-2026 
 Language/ver     : C++ in VS Code
 
-Description      : 
+Description      : TIMER library
 /----------------------------------------------------------------*/
 
 #ifndef __EC_TIM2_H

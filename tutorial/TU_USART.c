@@ -4,7 +4,7 @@
 
 static volatile uint8_t PC_Data = 0;
 static volatile uint8_t BT_Data = 0;
-uint8_t PC_string[]="Hi_BT";
+uint8_t PC_string[]="Hi_BT\n\r";
 
 void setup(void){
 	RCC_PLL_init();

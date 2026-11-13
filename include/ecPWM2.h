@@ -5,10 +5,7 @@ Created          : 05-03-2021
 Modified         : 11-01-2026 
 Language/ver     : C++ in VS Code
 
-Description      : [Write description here!!]
-*          PWM library - exercise version.
-*          Fill in every  "YOUR CODE GOES HERE"  and every  "____"  blank
-*          in ecPWM2_student.c .  This header needs no editing.
+Description      : PWM library
 
 /----------------------------------------------------------------*/
 

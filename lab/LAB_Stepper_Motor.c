@@ -9,7 +9,7 @@
 
 
 // ( A, B,  AN,  BN)
-// PinName_t pinStepper[4]    = {PC_5,PC_6,PC_7,PC_8};
+//PinName_t pinStepper[4]    = {PC_5,PC_6,PC_7,PC_8};
 PinName_t pinStepper[4] = {PB_10, PB_4, PB_5, PB_3};
 
 

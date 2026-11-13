@@ -21,7 +21,6 @@ static volatile uint8_t new_line = 0;     // Flag indicating Carriage Return rec
 // Movement Command Execution Flags
 static volatile uint8_t Stepper_CW = 0;   // Flag to execute CW rotation
 static volatile uint8_t Stepper_CCW = 0;  // Flag to execute CCW rotation
-static volatile uint8_t Stepper_stop = 0; // Flag to execute emergency stop
 
 // Step count required for 2 complete 360-degree revolutions
 uint32_t steps = STEP_PER_REV * 2; 
@@ -38,10 +37,13 @@ void setup(void){
     USART1_init();
     USART1_baud(BAUD_9600); // Standard baud rate for HC-06 module
 
+    USART2_init();
+    USART2_baud(BAUD_9600);
+
     // Peripheral Initialization
     GPIO_init(LED_PIN, OUTPUT);           // Configure PA5 as digital output for LD2 LED
     stepper_init(FULL, pinStepper);       // Initialize stepper pins in Full-Step excitation mode
-    stepper_speed(5);                     // Set rotational speed to 5 RPM (Revolutions Per Minute)
+    stepper_speed(10);                     // Set rotational speed to 5 RPM (Revolutions Per Minute)
 }
 
 /**
@@ -57,19 +59,14 @@ int main(void){
             printf("\r\n");
             new_line = 0;
         }
-
         // Stepper Control State Machine (Polling Flags set by Interrupt Handler)
-        if (Stepper_CW){
+        else if (Stepper_CW){
             stepper_step(steps, DIR_CW);  // Execute 2 revolutions Clockwise
             Stepper_CW = 0;               // Clear flag upon movement completion
         }
         else if (Stepper_CCW){
             stepper_step(steps, DIR_CCW); // Execute 2 revolutions Counter-Clockwise
             Stepper_CCW = 0;              // Clear flag upon movement completion
-        }
-        else if (Stepper_stop){
-            stepper_stop();               // Stop stepping motor output pins immediately
-            Stepper_stop = 0;             // Clear flag
         }
     }
 }
@@ -94,21 +91,15 @@ void USART1_IRQHandler(void){
         
         /* --- Stepper Motor Command Processing --- */
         else if (BT_data == 'J' || BT_data == 'j'){
-            Stepper_CCW = 0;             // Cancel pending CCW request
-            Stepper_stop = 0;            // Cancel pending stop request
             Stepper_CW = 1;              // Trigger CW rotation in main loop
         }
         else if (BT_data == 'K' || BT_data == 'k'){
-            Stepper_CW = 0;              // Cancel pending CW request
-            Stepper_stop = 0;            // Cancel pending stop request
             Stepper_CCW = 1;             // Trigger CCW rotation in main loop
         }
         else if (BT_data == 'P' || BT_data == 'p'){
-            Stepper_CW = 0;              // Cancel pending CW request
-            Stepper_CCW = 0;             // Cancel pending CCW request
-            Stepper_stop = 1;            // Trigger emergency stop in main loop
+            stepper_stop();
         }
-        
+
         /* --- Terminal Formatting Processing --- */
         else if (BT_data == END_CHAR){
             new_line = 1;                // Flag main loop to send newline

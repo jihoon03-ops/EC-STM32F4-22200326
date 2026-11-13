@@ -5,9 +5,7 @@ Created          : 05-03-2021
 Modified         : 10-29-2026 
 Language/ver     : C++ in VS Code
 
-Description      : [Write description here!!] 
-
-				Search for [YOUR CODE GOES HERE !!!!]  and fill in the code.
+Description      : Timer library
 /----------------------------------------------------------------*/
 
 #include "ecTIM2.h"
