@@ -1705,7 +1705,7 @@ void ICAP_init(PinName_t pinName, uint32_t edge_type);
 
 **Parameters**
 
-- **pinName**: Input capture pin (`PA_0`~`PA_1`, `PA_5`~`PA_6`, `PA_8`~`PA_10`, `PA_15`, `PB_3`~`PB_10`, `PC_6`~`PC_9`)
+- **pinName**: Input capture pin (`PA_0`\~`PA_1`, `PA_5`\~`PA_6`, `PA_8`\~`PA_10`, `PA_15`, `PB_3`\~`PB_10`, `PC_6`\~`PC_9`)
 - **edge_type**: `IC_RISE`(0), `IC_FALL`(1), `IC_BOTH`(2)
 
 **Example code**
@@ -1724,7 +1724,7 @@ void ICAP_ICn_init(PinName_t pinName, uint32_t edge_type, uint32_t ICn);
 
 **Parameters**
 
-- **pinName**: Input capture pin (`PA_0`~`PA_1`, `PA_5`~`PA_6`, `PA_8`~`PA_10`, `PA_15`, `PB_3`~`PB_10`, `PC_6`~`PC_9`)
+- **pinName**: Input capture pin (`PA_0`\~`PA_1`, `PA_5`\~`PA_6`, `PA_8`\~`PA_10`, `PA_15`, `PB_3`\~`PB_10`, `PC_6`\~`PC_9`)
 - **edge_type**: `IC_RISE`(0), `IC_FALL`(1), `IC_BOTH`(2)
 - **ICn**: Input Capture channel number, `IC_1`(1) ~ `IC_4`(4)
 
@@ -1782,7 +1782,7 @@ uint32_t is_CCIF(TIM_TypeDef *TIMx, uint32_t ICn);
 
 **Parameters**
 
-- **TIMx**: Timer peripheral (`TIM1`~`TIM5`, `TIM9`~`TIM11`)
+- **TIMx**: Timer peripheral (`TIM1`\~`TIM5`, `TIM9`\~`TIM11`)
 - **ICn**: Input Capture channel number, `IC_1`(1) ~ `IC_4`(4)
 
 **Example code**
@@ -1801,7 +1801,7 @@ void clear_CCIF(TIM_TypeDef *TIMx, uint32_t ICn);
 
 **Parameters**
 
-- **TIMx**: Timer peripheral (`TIM1`~`TIM5`, `TIM9`~`TIM11`)
+- **TIMx**: Timer peripheral (`TIM1`\~`TIM5`, `TIM9`\~`TIM11`)
 - **ICn**: Input Capture channel number, `IC_1`(1) ~ `IC_4`(4)
 
 **Example code**
@@ -1840,7 +1840,7 @@ void ICAP_filter(TIM_TypeDef *TIMx, uint32_t ICn, uint16_t filterOpt);
 
 **Parameters**
 
-- **TIMx**: Timer peripheral (`TIM1`~`TIM5`, `TIM9`~`TIM11`)
+- **TIMx**: Timer peripheral (`TIM1`\~`TIM5`, `TIM9`\~`TIM11`)
 - **ICn**: Input Capture channel number, `IC_1`(1) ~ `IC_4`(4)
 - **filterOpt**: `IC_FILTER_0`(0) ~ `IC_FILTER_3`(3)
 
@@ -1860,7 +1860,7 @@ void ICAP_ICn_select(TIM_TypeDef *TIMx, uint32_t TIn, uint32_t ICn);
 
 **Parameters**
 
-- **TIMx**: Timer peripheral (`TIM1`~`TIM5`, `TIM9`~`TIM11`)
+- **TIMx**: Timer peripheral (`TIM1`\~`TIM5`, `TIM9`\~`TIM11`)
 - **TIn**: Timer input channel (`1` ~ `4`)
 - **ICn**: Input Capture channel number, `IC_1`(1) ~ `IC_4`(4)
 
