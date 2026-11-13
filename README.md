@@ -66,6 +66,17 @@ MCU: STM32F411RE, Nucleo-64
   * [TIM_clock_enable()](#tim_clock_enable)
   * [get_TIM_IRQn()](#get_tim_irqn)
   * [Example Code](#example-code-4)
+* [PWM](#pwm)
+  * [Header File](#header-file-5)
+  * [PWM_init()](#pwm_init)
+  * [PWM_init_us()](#pwm_init_us)
+  * [PWM_duty()](#pwm_duty)
+  * [PWM_pulsewidth()](#pwm_pulsewidth)
+  * [PWM_pulsewidth_us()](#pwm_pulsewidth_us)
+  * [PWM_init_config()](#pwm_init_config)
+  * [PWM_mode_config()](#pwm_mode_config)
+  * [PWM_pinmap()](#pwm_pinmap)
+  * [Example Code](#example-code-5)
 ***
 
 ### GPIO Digital InOut
@@ -1312,4 +1323,282 @@ void led_toggle(PinName_t Pin){
 }
 ```
 
+
+
+### PWM
+
+#### Header File
+
+`#include "ecPWM2.h"`
+
+```c
+#ifndef __EC_PWM2_STUDENT_H
+#define __EC_PWM2_STUDENT_H
+
+#include "math.h"
+#include "stm32f411xe.h"
+#include "ecGPIO2.h"
+#include "ecTIM2.h"
+
+#ifdef __cplusplus
+ extern "C" {
+#endif /* __cplusplus */
+
+/* PWM Output Mode : OCxM field in CCMRx (3 bits) */
+#define EC_PWM_MODE1	0	// output active while CNT <  CCR  (default)
+#define EC_PWM_MODE2	1	// output active while CNT >= CCR  (inverted)
+
+
+///////////////////////////////////////////////////
+/* 		        EXERCISE					     */
+///////////////////////////////////////////////////
+
+// Internal Helper function: for PWM Initialization
+void PWM_init_config(PinName_t pinName, uint32_t usec);
+// Duty ratio 0~1.0
+void PWM_duty(PinName_t pinName, float duty);
+
+
+
+///////////////////////////////////////////////////
+/* 		GIVEN:  PWM Initialization                */
+///////////////////////////////////////////////////
+
+//  Low Frequency PWM initialization in msec. (below 1kHz)
+// 	Default: 		50% duty ratio. PWM_mode1, Period in msec.
+//  TIM2/TIM5 		(32-bit ARR) : msec 1 ~ 4,294,967
+//  TIM1/TIM3/TIM4 	(16-bit ARR) : msec 1 ~ 6,553   
+void PWM_init(PinName_t pinName, uint32_t msec);	// 1 to 6,553 msec (16-bit)
+
+//  High-Frequency PWM initialization in usec (1kHz to 100 kHz)
+// 	Default: 		50% duty ratio.  PWM_mode1, Period in usec.
+//  TIM2/TIM5 		(32-bit ARR) : 	usec 1 ~ 4,294,967
+//  TIM1/TIM3/TIM4 	(16-bit ARR) : 	usec 1 ~ 6,553   
+void PWM_init_us(PinName_t pinName, uint32_t usec);	// 10 usec and up
+
+
+///////////////////////////////////////////////////
+/* 		GIVEN: DUTY RATIO SETUP                 */
+///////////////////////////////////////////////////
+
+// Set Pulse width in msec
+void PWM_pulsewidth(PinName_t pinName, uint32_t pulse_width_ms);
+
+// Set Pulse width in usec
+void PWM_pulsewidth_us(PinName_t pinName, uint32_t pulse_width_us);
+
+
+////////////////////////////////////////////////////////////////
+/* Internal Helper Functions - GIVEN. DO NOT MODIFY           */
+////////////////////////////////////////////////////////////////
+
+// Internal function for PWM output mode : EC_PWM_MODE1 or EC_PWM_MODE2
+void PWM_mode_config(TIM_TypeDef *TIMx, int chN, uint32_t mode);
+// Internal Helper function for PWM Pin Matching
+void PWM_pinmap(PinName_t pinName, TIM_TypeDef **TIMx, int *chN);
+
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
+#endif // __EC_PWM2_STUDENT_H
+```
+
+#### PWM_init()
+
+Initializes low-frequency PWM output in milliseconds (default: PWM Mode 1, active high, 50% duty ratio).
+
+```c
+void PWM_init(PinName_t pinName, uint32_t msec);
+```
+
+**Parameters**
+
+- **pinName**: PWM output pin (`PA_0`~`PA_1`, `PA_5`~`PA_6`, `PA_8`~`PA_10`, `PA_15`, `PB_3`~`PB_10`, `PC_6`~`PC_9`)
+- **msec**: PWM period in milliseconds (`1` ~ `4,294,967` for 32-bit `TIM2`/`TIM5`; `1` ~ `6,553` for 16-bit `TIM1`/`TIM3`/`TIM4`)
+
+**Example code**
+
+
+
+```c
+PWM_init(PA_5, 10);  // 10 msec period -> 100 Hz
+```
+
+#### PWM_init_us()
+
+Initializes high-frequency PWM output in microseconds (default: PWM Mode 1, active high, 50% duty ratio; minimum `10` usec).
+
+```c
+void PWM_init_us(PinName_t pinName, uint32_t usec);
+```
+
+**Parameters**
+
+- **pinName**: PWM output pin (`PA_0`~`PA_1`, `PA_5`~`PA_6`, `PA_8`~`PA_10`, `PA_15`, `PB_3`~`PB_10`, `PC_6`~`PC_9`)
+- **usec**: PWM period in microseconds (`10` ~ `4,294,967` for 32-bit `TIM2`/`TIM5`; `10` ~ `6,553` for 16-bit `TIM1`/`TIM3`/`TIM4`)
+
+**Example code**
+
+```c
+PWM_init_us(PA_5, 1000);  // 1 msec period -> 1 kHz
+```
+
+#### PWM_duty()
+
+Sets the PWM duty ratio by updating the corresponding channel Capture/Compare Register (`CCRx`).
+
+```c
+void PWM_duty(PinName_t pinName, float duty);
+```
+
+**Parameters**
+
+- **pinName**: PWM output pin
+- **duty**: Duty ratio from `0.0f` to `1.0f` (clamped to `[0.0, 1.0]`)
+
+**Example code**
+
+```c
+PWM_duty(PA_5, 0.2f);  // 20% duty ratio
+```
+
+#### PWM_pulsewidth()
+
+Sets the PWM active pulse width in milliseconds by converting the duration into a duty ratio.
+
+```c
+void PWM_pulsewidth(PinName_t pinName, uint32_t pulse_width_ms);
+```
+
+**Parameters**
+
+- **pinName**: PWM output pin
+- **pulse_width_ms**: Active pulse width in milliseconds
+
+**Example code**
+
+```c
+PWM_pulsewidth(PA_5, 2);  // 2 msec pulse width
+```
+
+#### PWM_pulsewidth_us()
+
+Sets the PWM active pulse width in microseconds by converting the duration into a duty ratio.
+
+```c
+void PWM_pulsewidth_us(PinName_t pinName, uint32_t pulse_width_us);
+```
+
+**Parameters**
+
+- **pinName**: PWM output pin
+- **pulse_width_us**: Active pulse width in microseconds
+
+**Example code**
+
+```c
+PWM_pulsewidth_us(PA_5, 1500);  // 1500 usec pulse width
+```
+
+#### PWM_init_config()
+
+Internal helper function that maps the GPIO pin to its timer/channel, configures Alternate Function (`AF1`~`AF3`), initializes the timer period, configures PWM Mode 1, and enables the timer counter (including `BDTR_MOE` for `TIM1`).
+
+```c
+void PWM_init_config(PinName_t pinName, uint32_t usec);
+```
+
+**Parameters**
+
+- **pinName**: PWM output pin
+- **usec**: PWM period in microseconds
+
+**Example code**
+
+```c
+PWM_init_config(PA_5, 10000);
+```
+
+#### PWM_mode_config()
+
+Internal helper function that configures the output compare mode (`EC_PWM_MODE1` or `EC_PWM_MODE2`), preload enable (`OCxPE`), default 50% `CCRx` value, active-high polarity, and channel output enable (`CCxE`).
+
+```c
+void PWM_mode_config(TIM_TypeDef *TIMx, int chN, uint32_t mode);
+```
+
+**Parameters**
+
+- **TIMx**: Timer peripheral (`TIM1`~`TIM5`, `TIM9`~`TIM11`)
+- **chN**: Timer channel number (`1` ~ `4`)
+- **mode**: `EC_PWM_MODE1`(0) or `EC_PWM_MODE2`(1)
+
+**Example code**
+
+```c
+PWM_mode_config(TIM2, 1, EC_PWM_MODE1);
+```
+
+#### PWM_pinmap()
+
+Internal helper function that maps a `PinName_t` to its corresponding `TIM_TypeDef*` instance and channel number (`1` ~ `4`).
+
+```c
+void PWM_pinmap(PinName_t pinName, TIM_TypeDef **TIMx, int *chN);
+```
+
+**Parameters**
+
+- **pinName**: PWM output pin
+- **TIMx**: Pointer to store the matched timer peripheral
+- **chN**: Pointer to store the matched channel number (`1` ~ `4`)
+
+**Example code**
+
+```c
+PWM_pinmap(PA_5, &TIMx, &chN);
+```
+
+#### Example Code
+
+```c
+#include "ecGPIO2.h"
+#include "ecSysTick2.h"
+#include "ecRCC2.h"
+#include "ecTIM2.h"
+#include "ecPWM2.h"
+
+// Button Pin & PWM Pin
+#define PWM_LED PA_5
+
+// Initialiization 
+void setup(void) {  
+    RCC_PLL_init();
+    SysTick_init();
+
+    // PWM of 10 msec:  TIM2_CH1 (PA_5) 
+    PWM_init(PWM_LED, 10);          // 10 msec period -> 100 Hz 
+    PWM_duty(PWM_LED, 0.2f);        // 20% of duty
+    // PWM_pulsewidth(PWM_LED, 2);  // a Pulse of 2msec =(duty=1/10=20%)
+
+    // PWM of 1 msec:  TIM2_CH1 (PA_5)  
+    // PWM_init_us(PWM_LED, 1000);  // 1 msec period -> 1 kHz
+    // PWM_duty(PWM_LED, 0.2f);     // 20% of duty  
+}
+
+int main(void) {
+    // Initialization --------------------------------------------------
+    setup();    
+
+    // Infinite Loop ---------------------------------------------------
+    while(1){       
+        for (int i=0; i<5; i++) {                       
+            PWM_duty(PWM_LED, (float)0.2*i);                    
+            delay_ms(1000);
+        }       
+    }
+}
+```
  
