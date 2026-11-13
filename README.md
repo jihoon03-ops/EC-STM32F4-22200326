@@ -1614,14 +1614,14 @@ int main(void) {
 }
 ```
 
-~~~c
+
 ### Input Capture
 
 #### Header File
 
 `#include "ecICAP2.h"`
 
-```c++
+```c
 #ifndef __EC_ICAP2_H
 #define __EC_ICAP2_H
 
