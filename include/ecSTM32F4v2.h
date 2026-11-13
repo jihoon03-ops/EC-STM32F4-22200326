@@ -35,6 +35,7 @@
 
 // #define ...........
 #define LED_PIN     PA_5
+#define LED_PIN     PA_5
 
 
 // enum...........

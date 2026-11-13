@@ -80,7 +80,7 @@ void stepper_step(uint32_t steps, uint32_t direction){
 
 		// Output of Present State
 		stepper_out(state);
-    
+		
 		// Delay for steppermotor speed
 		delay_ms(_step_delay);
 	}

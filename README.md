@@ -14,23 +14,40 @@ MCU: STM32F411RE, Nucleo-64
 
 **Table of Contents**
 
-* [GPIO Digital In/Out](/ec/ec-course/tutorial.md#gpio-digital-inout)
-  * [Header File](/ec/ec-course/tutorial.md#header-file)
-  * [GPIO\_init()](/ec/ec-course/tutorial.md#gpio-init----)
-  * [GPIO\_mode()](/ec/ec-course/tutorial.md#gpio-mode----)
-  * [GPIO\_write()](/ec/ec-course/tutorial.md#gpio-write----)
-  * [GPIO\_read()](/ec/ec-course/tutorial.md#gpio-read----)
-  * [GPIO\_ospeed()](/ec/ec-course/tutorial.md#gpio-ospeed----)
-  * [GPIO\_otype()](/ec/ec-course/tutorial.md#gpio-otype----)
-  * [GPIO\_pupdr()](/ec/ec-course/tutorial.md#gpio-pupdr----)
-  * [Example Code](/ec/ec-course/tutorial.md)
-* [EXTI](/ec/ec-course/tutorial.md#gpio-digital-inout)
-  * [Header File](/ec/ec-course/tutorial.md#header-file)
-  * EXTI_init()
-  * EXTI_enable
-  * EXTI_disable
-  * is_pending_EXTI
-  * clear_pending_EXTI
+* [GPIO Digital In/Out](#gpio-digital-inout)
+  * [Header File](#header-file)
+  * [GPIO_init()](#gpio_init)
+  * [GPIO_mode()](#gpio_mode)
+  * [GPIO_write()](#gpio_write)
+  * [GPIO_read()](#gpio_read)
+  * [GPIO_ospeed()](#gpio_ospeed)
+  * [GPIO_otype()](#gpio_otype)
+  * [GPIO_pupdr()](#gpio_pupdr)
+  * [Example Code](#example-code)
+* [EXTI](#exti)
+  * [Header File](#header-file-1)
+  * [EXTI_init()](#exti_init)
+  * [EXTI_enable](#exti_enable)
+  * [EXTI_disable](#exti_disable)
+  * [is_pending_EXTI](#is_pending_exti)
+  * [clear_pending_EXTI](#clear_pending_exti)
+* [Stepper](#stepper-motor)
+  * [Header File](#header-file-2)
+  * [stepper_init()](#stepper_init)
+  * [stepper_speed()](#stepper_speed)
+  * [stepper_step()](#stepper_step)
+  * [stepper_out()](#stepper_out)
+  * [stepper_stop()](#stepper_stop)
+* [UART](#uart)
+  * [Header File](#header-file-3)
+  * [USART_init()](#usart_init)
+  * [USART_baud()](#usart_baud)
+  * [USART_pins()](#usart_pins)
+  * [USART_clock_enable()](#usart_clock_enable)
+  * [USART_write()](#usart_write)
+  * [USART_read()](#usart_read)
+  * [is_USART_RXNE()](#is_usart_rxne)
+  * [USART_delay()](#usart_delay)
 
 ***
 
@@ -466,3 +483,399 @@ void EXTI4_IRQHandler(void) {
 }
 ```
 
+### STEPPER MOTOR
+
+#### Header File
+
+`#include "ecStepper2.h"`
+
+```C++
+#include "stm32f411xe.h"
+#include "ecPinNames.h"
+#include "ecRCC2.h"
+#include "ecGPIO2.h"
+#include "ecSysTick2.h"
+			
+#ifndef __EC_STEPPER2_H
+#define __EC_STEPPER2_H
+
+#ifdef __cplusplus
+ extern "C" {
+#endif /* __cplusplus */
+
+// Stepper Mode
+#define HALF 0
+#define FULL 1	 
+#define DIR_CW 0
+#define DIR_CCW 1	  
+
+// Stepper Motor Spec
+// 28BYJ-48 : 64 steps/rev x 1/32 gear = 2048 
+#define STEP_PER_REV  (64*32)		
+
+//State number 
+typedef enum {
+	S0, S1, S2, S3, S4, S5, S6, S7
+} StateNum;
+
+// FULL stepping sequence  - FSM
+typedef struct {	
+  uint32_t next[2];
+  uint8_t out[4];
+} StateStepper_t;
+
+// Initialization of Stepper Motor
+void stepper_init(uint32_t mode, PinName_t *pinStepper);
+
+// Converts Motor [rpm] to step delay in [msec]
+void stepper_speed (uint32_t speedRPM);
+
+// Run Stepper Motor for given steps and direction
+void stepper_step(uint32_t steps, uint32_t direction);
+
+// Stepper Motor Output for given state
+void stepper_out(uint32_t state);
+
+// Stop Stepper Motor
+void stepper_stop(void);
+
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
+#endif // __EC_STEPPER2_H
+
+```
+
+
+
+#### stepper\_init()
+
+Initialization of Stepper Motor that includes mode(half, full step) selection and initialization of  4 pins
+
+```c
+void stepper_init(uint32_t mode, PinName_t *pinStepper);
+```
+
+**Parameters**
+
+* **mode**: HALF(0),  FULL(1) :  full stepping mode, half stepping mode
+* **pinStepper**: 4 element array, each element corresponds to 4 pins. (A, B, AN, BN)
+
+**Example code**
+
+```c
+stepper_init(HALF, pinStepper); 	
+```
+
+
+
+#### stepper\_speed()
+
+setting the stepper motor speed in RPM. as
+
+```c
+void stepper_speed (uint32_t speedRPM);
+```
+
+**Parameters**	
+
+* **speedRPM**: RPM of stepper motor, 1, 2...
+
+**Example code**
+
+```c
+stepper_speed(1);		//stepper motor speed 1RPM
+```
+
+
+
+#### stepper\_step()
+
+Run Stepper Motor for given steps and direction. For each step
+
+Update Present State, Output of Present State, Delay for steppermotor speed is conducted.
+
+```c 
+void stepper_step(uint32_t steps, uint32_t direction)
+```
+
+**Parameters**
+
+- steps : number of steps, (Motor 28BYJ-48 spec : 2048 per 1 revolution)
+- direction : DIR_CW(0), DIR_CCW(1) setting rotation direction. 
+
+**Example code**
+
+``` c 
+stepper_step(steps, DIR_CW);  // (Step : 2048, Direction : 0 or 1)
+```
+
+
+
+#### stepper\_out()
+
+Stepper Motor Output for given state using [GPIO_write()](#gpio_write). 
+
+```c
+void stepper_out(uint32_t state)
+```
+
+**Parameters**
+
+- state : 0 ~ 3 for full step, 0 ~7 for half step
+
+**Example code**
+
+```c 
+stepper_out(state);		
+```
+
+
+
+#### stepper\_stop()
+
+making stepper motor to stop by setting all the pins LOW. Also reset the counted steps.
+
+``` c  
+void stepper_stop(void)
+```
+
+**Example code**
+
+```c
+stepper_stop();		//stop stepper motor
+```
+
+
+
+### Example code
+
+```c
+#include "stm32f411xe.h"
+#include "ecGPIO2.h"
+#include "ecRCC2.h"
+#include "ecEXTI2.h"
+#include "ecSysTick2.h"
+#include "ecStepper2.h"
+
+#define BUTTON_PIN  PC_13
+
+
+// ( A, B,  AN,  BN)
+PinName_t pinStepper[4]    = {PB_10,PB_4,PB_5,PB_3};
+
+// Initialiization 
+void setup(void){	
+	RCC_PLL_init();                                 // System Clock = 84MHz
+	SysTick_init();                                 // Systick init
+	
+	GPIO_init(BUTTON_PIN, INPUT);           		// GPIOC pin13 initialization
+    EXTI_init(BUTTON_PIN, FALL, 0);           		// External Interrupt Setting
+
+	stepper_init(HALF, pinStepper); 				// Stepper GPIO pin initialization
+	stepper_speed(1);                          		//  set stepper motor speed
+}
+
+
+int main(void) { 
+	// Initialiization --------------------------------------------------------
+	setup();
+	uint32_t rev=2;
+	uint32_t steps=STEP_PER_REV*rev;
+	
+	// Inifinite Loop ----------------------------------------------------------
+	while(1){
+		stepper_step(steps, DIR_CW);  // (Step : 2048, Direction : 0 or 1, Mode : FULL or HALF)
+		delay_ms(2000);
+		stepper_step(steps, DIR_CCW);  // (Step : 2048, Direction : 0 or 1, Mode : FULL or HALF)
+		delay_ms(2000);
+	}
+}
+
+
+
+void EXTI15_10_IRQHandler(void) {  
+	if (is_pending_EXTI(BUTTON_PIN)) {
+		stepper_stop();
+		clear_pending_EXTI(BUTTON_PIN); // cleared by writing '1'
+	}
+}
+```
+
+### UART
+
+#### Header File
+
+`#include "ecUART2.h"`
+
+```C++
+#ifndef __EC_USART2_STUDENT_H
+#define __EC_USART2_STUDENT_H
+
+#include <stdio.h>
+#include <math.h>
+#include "stm32f411xe.h"
+#include "ecGPIO2.h"
+#include "ecRCC2.h"
+
+
+#define POL 		0
+#define INT 		1
+
+// You can modify this
+#define BAUD_9600	9600
+#define BAUD_19200	19200
+#define BAUD_38400  38400
+#define BAUD_57600	57600
+#define BAUD_115200 115200
+#define BAUD_921600 921600
+
+
+/*================ General Configuration ================*/
+// General configuration
+void USART_init(USART_TypeDef* USARTx, PinName_t pin_GPIO_TX, PinName_t pin_GPIO_RX, uint32_t baud);	// copy of USART_setting
+void USART_baud(USART_TypeDef* USARTx, uint32_t baud);
+void USART_pins(USART_TypeDef* USARTx, PinName_t pin_GPIO_TX, PinName_t pin_GPIO_RX);
+
+void USART1_baud(uint32_t baud);
+void USART2_baud(uint32_t baud);
+
+
+/*================ PROVIDED  ================*/
+/*================ Configuration for each USART ================*/
+// Configuration UART 1, 2 using default settings
+void USART1_init(void);
+void USART2_init(void);
+
+// USART write & read
+void USART1_write(uint8_t* buffer, uint32_t nBytes);
+void USART2_write(uint8_t* buffer, uint32_t nBytes);
+uint8_t USART1_read(void);										
+uint8_t USART2_read(void);	
+
+// RX Inturrupt Flag USART1,2
+uint32_t is_USART1_RXNE(void);
+uint32_t is_USART2_RXNE(void);
+
+
+/*================ General Configuration ================*/
+void USART_clock_enable(USART_TypeDef* USARTx);
+void USART_write(USART_TypeDef* USARTx, uint8_t* buffer, uint32_t nBytes);
+uint8_t USART_read(USART_TypeDef * USARTx);										
+uint32_t is_USART_RXNE(USART_TypeDef * USARTx);
+void USART_delay(uint32_t us);  
+
+								
+
+#endif // __EC_USART2_STUDENT_H
+
+```
+
+
+
+#### USART\_init()
+
+Initialization of GPIO pin for TX and RX, USARTx (x=2,1,6) configuration
+
+```c
+void USART_init(USART_TypeDef* USARTx, PinName_t pin_GPIO_TX, PinName_t pin_GPIO_RX, uint32_t baud);
+```
+
+**Parameters**
+
+* **USARTx**: USARTx (x = 2, 1 ,6)
+* **pin_GPIO_TX**: PA_9, PA_10  specific Port number
+* **pin_GPIO_RX**: PA_2, PA_3  specific Port number
+* **baud**: 9600, 19200, 38400 ... 
+
+**Example code**
+
+```c
+USART_init(USART2, PA_2, PA_3, 9600) 	
+```
+
+#### USART\_baud()
+
+configure Baud-rate
+
+```c
+void USART_baud(USART_TypeDef* USARTx, uint32_t baud);
+```
+
+**Parameters**
+
+* **USARTx**: USARTx (x = 2, 1, 6)
+* **baud**: 9600, 19200, 38400 ... 
+
+**Example code**
+
+```c
+USART1_baud(BAUD_9600);  //BAUD = 9600
+```
+
+
+#### USART\_pins()
+
+GPIO pin setup for USARTx TX/RX
+
+```c
+void USART_pins(USART_TypeDef* USARTx, PinName_t pin_GPIO_TX, PinName_t pin_GPIO_RX);
+```
+
+**Parameters**
+
+* **USARTx**: USARTx (x = 2, 1, 6)
+* **pin_GPIO_TX**: PA_9, PA_10  specific Port number
+* **pin_GPIO_RX**: PA_2, PA_3  specific Port number
+
+**Example code**
+
+```c
+USART_pins(USART1, PA_2, PA_3);
+```
+
+#### USART_clock_enable()
+
+Enable USARTx clock (x = 2, 1, 6)
+
+```c
+void USART_clock_enable(USART_TypeDef* USARTx);
+```
+
+**Parameters**
+
+- **USARTx**: USARTx (x = 2, 1, 6)
+
+**Example code**
+
+```c
+USART_clock_enable(USARTx);		//ex) USART_TypeDef *USARTx= USART1
+```
+
+#### USART_write()
+
+```c
+void USART_write(USART_TypeDef* USARTx, uint8_t* buffer, uint32_t nBytes);
+```
+
+#### USART_read()
+
+```c
+uint8_t USART_read(USART_TypeDef * USARTx);
+```
+
+#### is_USART_RXNE()
+
+```c
+uint32_t is_USART_RXNE(USART_TypeDef * USARTx);
+```
+
+#### USART_delay()
+
+```c
+void USART_delay(uint32_t us);
+```
+
+ 
