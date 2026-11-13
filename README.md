@@ -1009,8 +1009,7 @@ void TIM_clock_enable(TIM_TypeDef* TIMx);
 #endif /* __cplusplus */
 
 #endif // __EC_TIM2_H 
-```[cite: 2]
-
+```
 
 
 #### TIM\_UI\_init()
@@ -1019,243 +1018,243 @@ Initializes the timer counter in milliseconds, enables the Update Interrupt (UIE
 
 ```c
 void TIM_UI_init(TIM_TypeDef* TIMx, uint32_t msec);
-```[cite: 2]
+```
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`[cite: 1]
-- **msec**: Update interrupt period in milliseconds (`1` ~ `6,553` msec for 16-bit ARR at 10 kHz)[cite: 1]
+- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
+- **msec**: Update interrupt period in milliseconds (`1` ~ `6,553` msec for 16-bit ARR at 10 kHz)
 
 **Example code**
 
 ```c
 TIM_UI_init(TIM2, 1);  // UEV every 1 msec
-```[cite: 3]
+```
 
 
 
 #### TIM\_UI\_init\_us()
 
-Initializes the timer counter in microseconds, enables the Update Interrupt (UIE), and configures the NVIC IRQ with priority 2[cite: 1].
+Initializes the timer counter in microseconds, enables the Update Interrupt (UIE), and configures the NVIC IRQ with priority 2.
 
 ```c
 void TIM_UI_init_us(TIM_TypeDef* TIMx, uint32_t usec);
-```[cite: 2]
+```
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`[cite: 1]
-- **usec**: Update interrupt period in microseconds (`1` ~ `65,530` usec for 16-bit ARR at 1 MHz)[cite: 1]
+- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
+- **usec**: Update interrupt period in microseconds (`1` ~ `65,530` usec for 16-bit ARR at 1 MHz)
 
 **Example code**
 
 ```c
 TIM_UI_init_us(TIM2, 1000);  // UEV every 1000 usec = 1 msec
-```[cite: 3]
+```
 
 
 
 #### TIM\_UI\_enable()
 
-Clears any pending update flag and enables the Timer Update Interrupt (`UIE` bit in `DIER`)[cite: 1].
+Clears any pending update flag and enables the Timer Update Interrupt (`UIE` bit in `DIER`).
 
 ```c
 void TIM_UI_enable(TIM_TypeDef* TIMx);
-```[cite: 2]
+```
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`[cite: 1]
+- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
 
 **Example code**
 
 ```c
 TIM_UI_enable(TIM2);
-```[cite: 1, 2]
+```
 
 
 
 #### TIM\_UI\_disable()
 
-Disables the Timer Update Interrupt (`UIE` bit in `DIER`)[cite: 1].
+Disables the Timer Update Interrupt (`UIE` bit in `DIER`).
 
 ```c
 void TIM_UI_disable(TIM_TypeDef* TIMx);
-```[cite: 2]
+```
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`[cite: 1]
+- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
 
 **Example code**
 
 ```c
 TIM_UI_disable(TIM2);
-```[cite: 1, 2]
+```
 
 
 
 #### is\_UIF()
 
-Reads and returns the Update Interrupt Flag (`UIF`) status from `TIMx->SR`[cite: 1].
+Reads and returns the Update Interrupt Flag (`UIF`) status from `TIMx->SR`.
 
 ```c
 uint32_t is_UIF(TIM_TypeDef *TIMx);
-```[cite: 2]
+```
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`[cite: 1]
+- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
 
 **Example code**
 
 ```c
 if (is_UIF(TIM2)) { ... }
-```[cite: 3]
+```
 
 
 
 #### clear\_UIF()
 
-Clears the Update Interrupt Flag (`UIF`) in `TIMx->SR`[cite: 1].
+Clears the Update Interrupt Flag (`UIF`) in `TIMx->SR`.
 
 ```c
 void clear_UIF(TIM_TypeDef *TIMx);
-```[cite: 2]
+```
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`[cite: 1]
+- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
 
 **Example code**
 
 ```c
 clear_UIF(TIM2);
-```[cite: 3]
+```
 
 
 
 #### TIM\_init()
 
-Enables the timer clock, configures the counter period in milliseconds (default counter frequency = 10 kHz), sets up-counting mode, and enables the counter[cite: 1].
+Enables the timer clock, configures the counter period in milliseconds (default counter frequency = 10 kHz), sets up-counting mode, and enables the counter.
 
 ```c
 void TIM_init(TIM_TypeDef *TIMx, uint32_t msec);
-```[cite: 2]
+```
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`[cite: 1]
-- **msec**: Counter period in milliseconds (`1` ~ `6,553` msec)[cite: 1]
+- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
+- **msec**: Counter period in milliseconds (`1` ~ `6,553` msec)
 
 **Example code**
 
 ```c
 TIM_init(TIM2, 500);
-```[cite: 1, 2]
+```
 
 
 
 #### TIM\_init\_us()
 
-Enables the timer clock, configures the counter period in microseconds (default counter frequency = 1 MHz), sets up-counting mode, and enables the counter[cite: 1].
+Enables the timer clock, configures the counter period in microseconds (default counter frequency = 1 MHz), sets up-counting mode, and enables the counter.
 
 ```c
 void TIM_init_us(TIM_TypeDef *TIMx, uint32_t usec);
-```[cite: 2]
+```
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`[cite: 1]
-- **usec**: Counter period in microseconds (`1` ~ `65,530` usec)[cite: 1]
+- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
+- **usec**: Counter period in microseconds (`1` ~ `65,530` usec)
 
 **Example code**
 
 ```c
 TIM_init_us(TIM2, 100);
-```[cite: 1, 2]
+```
 
 
 
 #### TIM\_period\_ms()
 
-Configures the Prescaler (`PSC`) for a 10 kHz counter clock and sets the Auto-Reload Register (`ARR`) for the target period in milliseconds[cite: 1].
+Configures the Prescaler (`PSC`) for a 10 kHz counter clock and sets the Auto-Reload Register (`ARR`) for the target period in milliseconds.
 
 ```c
 void TIM_period_ms(TIM_TypeDef* TIMx, uint32_t msec);
-```[cite: 2]
+```
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`[cite: 1]
-- **msec**: Target period in milliseconds (`1` ~ `6,553` msec)[cite: 1]
+- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
+- **msec**: Target period in milliseconds (`1` ~ `6,553` msec)
 
 **Example code**
 
 ```c
 TIM_period_ms(TIM2, 10);
-```[cite: 1, 2]
+```
 
 
 
 #### TIM\_period\_us()
 
-Configures the Prescaler (`PSC`) for a 1 MHz counter clock and sets the Auto-Reload Register (`ARR`) for the target period in microseconds[cite: 1].
+Configures the Prescaler (`PSC`) for a 1 MHz counter clock and sets the Auto-Reload Register (`ARR`) for the target period in microseconds.
 
 ```c
 void TIM_period_us(TIM_TypeDef* TIMx, uint32_t usec);
-```[cite: 2]
+```
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`[cite: 1]
-- **usec**: Target period in microseconds (`1` ~ `65,530` usec)[cite: 1]
+- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
+- **usec**: Target period in microseconds (`1` ~ `65,530` usec)
 
 **Example code**
 
 ```c
 TIM_period_us(TIM2, 500);
-```[cite: 1, 2]
+```
 
 
 
 #### TIM\_clock\_enable()
 
-Enables the APB1 or APB2 peripheral clock for the specified timer (`TIM1`~`TIM5`, `TIM9`~`TIM11`)[cite: 1].
+Enables the APB1 or APB2 peripheral clock for the specified timer (`TIM1`~`TIM5`, `TIM9`~`TIM11`).
 
 ```c
 void TIM_clock_enable(TIM_TypeDef* TIMx);
-```[cite: 2]
+```
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`[cite: 1]
+- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
 
 **Example code**
 
 ```c
 TIM_clock_enable(TIM2);
-```[cite: 1, 2]
+```
 
 
 
 #### get\_TIM\_IRQn()
 
-Returns the corresponding NVIC IRQ number (`IRQn_Type`) for the specified timer peripheral[cite: 1].
+Returns the corresponding NVIC IRQ number (`IRQn_Type`) for the specified timer peripheral.
 
 ```c
 uint32_t get_TIM_IRQn(TIM_TypeDef* TIMx);
-```[cite: 2]
+```
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`[cite: 1]
+- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
 
 **Example code**
 
 ```c
 uint32_t IRQn_reg = get_TIM_IRQn(TIM2);
-```[cite: 1]
+```
 
 
 
@@ -1311,6 +1310,6 @@ void led_toggle(PinName_t Pin){
     if(set == 1) GPIO_write(Pin, HIGH);
     else GPIO_write(Pin, LOW);
 }
-```[cite: 3]
+```
 
  
