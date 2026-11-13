@@ -856,26 +856,79 @@ USART_clock_enable(USARTx);		//ex) USART_TypeDef *USARTx= USART1
 
 #### USART_write()
 
+Wait until TXE (TX empty) bit is set. 
+
+Write the input array element to USART_DR. 
+
+Clear TC bit. 
+
 ```c
 void USART_write(USART_TypeDef* USARTx, uint8_t* buffer, uint32_t nBytes);
 ```
 
+**Parameters**
+
+- **USARTx**: USARTx (x = 2, 1, 6)
+- **buffer**: address of pointer array
+- **nBytes**: array length
+
+**Example code**
+
+```c
+USART_write(USART1, PC_string, 7);		//uint8_t PC_string[]="Hi_BT\n\r";
+```
+
 #### USART_read()
+
+Wait until RXNE (RX not empty) bit is set by HW.
+
+Read USART_DR
+
+(Reading USART_DR automatically clears the RXNE flag)
 
 ```c
 uint8_t USART_read(USART_TypeDef * USARTx);
 ```
 
+**Parameters**
+
+- **USARTx**: USARTx (x = 2, 1, 6)
+
+```c
+PC_data = USART_read(USART2);
+```
+
 #### is_USART_RXNE()
+
+Read RXNE bit of  USARTx
 
 ```c
 uint32_t is_USART_RXNE(USART_TypeDef * USARTx);
 ```
 
+**Parameters**
+
+- **USARTx**: USARTx (x = 2, 1, 6)
+
+```c
+if (is_USART_RXNE(USARTx));
+```
+
 #### USART_delay()
+
+delay function
 
 ```c
 void USART_delay(uint32_t us);
 ```
+
+**Parameters**
+
+- **us**: delay time [usec]
+
+```c
+USART_delay(100); 		//100us delay
+```
+
 
  
