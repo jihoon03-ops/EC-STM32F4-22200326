@@ -1014,7 +1014,7 @@ void TIM_clock_enable(TIM_TypeDef* TIMx);
 
 #### TIM\_UI\_init()
 
-Initializes the timer counter in milliseconds, enables the Update Interrupt (UIE), and configures the NVIC IRQ with priority 2[cite: 1].
+Initializes the timer counter in milliseconds, enables the Update Interrupt (UIE), and configures the NVIC IRQ with priority 2.
 
 ```c
 void TIM_UI_init(TIM_TypeDef* TIMx, uint32_t msec);
@@ -1022,7 +1022,7 @@ void TIM_UI_init(TIM_TypeDef* TIMx, uint32_t msec);
 
 **Parameters**
 
-- **TIMx**: Timer peripheral, `TIM1`~`TIM5`, `TIM9`~`TIM11`
+- **TIMx**: Timer peripheral, `TIM1`\~`TIM5`, `TIM9`\~`TIM11`
 - **msec**: Update interrupt period in milliseconds (`1` ~ `6,553` msec for 16-bit ARR at 10 kHz)
 
 **Example code**
